@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart | Gadgetique Premium Tech</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700;800&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            /* Pure White */
+            color: #1e293b;
+            /* Slate 800 */
+        }
+
+        h1, h2, h3, .brand-font {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .text-primary {
+            color: #7c3aed;
+            /* Violet 600 */
+        }
+
+        .bg-primary {
+            background-color: #7c3aed;
+        }
+
+        .bg-glass {
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(12px);
+        }
+
+        .action-icon {
+            @apply p-2.5 rounded-full transition duration-300 text-slate-500 hover:bg-violet-50 hover:text-violet-600;
+        }
+
+        /* Modern Nav Links */
+        .nav-link {
+            @apply px-5 py-2.5 font-medium text-sm text-slate-600 rounded-full transition-all duration-300 hover:bg-slate-50 hover:text-violet-700;
+        }
+
+        .nav-link-active {
+            @apply bg-violet-50 text-violet-700 font-semibold shadow-sm ring-1 ring-violet-100;
+        }
+
+        .footer-link {
+            @apply text-slate-400 hover:text-white transition duration-200 block mb-3 text-sm font-medium;
+        }
+
+        .footer-heading {
+            @apply text-xs font-bold uppercase tracking-widest mb-6 text-white opacity-80;
+        }
+
+        /* Slide Card Height */
+        .slide-card-height {
+            height: 30rem;
+        }
+
+        @media (min-width: 768px) {
+            .slide-card-height {
+                height: 26rem;
+            }
+        }
+        
+        /* Ticker Animation */
+        @keyframes ticker {
+            0% { transform: translateX(0%); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .animate-ticker {
+            display: inline-block;
+            white-space: nowrap;
+            animation: ticker 40s linear infinite;
+        }
+
+        /* Side Drawers */
+        .side-drawer.open {
+            transform: translateX(0);
+        }
+        .side-drawer {
+            transform: translateX(100%);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        /* Product Card Styling */
+        .product-card {
+            transition: all 0.4s ease;
+        }
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 10px 10px -5px rgba(0, 0, 0, 0.01);
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #7c3aed 0%, #db2777 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+         .nav-link {
+    position: relative;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #475569; /* slate-600 */
+    transition: color 0.25s ease;
+  }
+
+  .nav-link::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -6px;
+    width: 0;
+    height: 2px;
+    background-color: #7c3aed; /* violet-600 */
+    border-radius: 9999px;
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+  }
+
+  .nav-link:hover {
+    color: #7c3aed;
+  }
+
+  .nav-link:hover::after {
+    width: 70%;
+  }
+
+  .nav-link-active {
+    color: #7c3aed;
+    font-weight: 600;
+  }
+
+  .nav-link-active::after {
+    width: 70%;
+  }
+
+  /* Clearance special */
+  .nav-link-clearance:hover {
+    color: #e11d48; /* rose-600 */
+  }
+
+  .nav-link-clearance::after {
+    background-color: #e11d48;
+  }
+  html {
+  scroll-behavior: smooth;
+}
+
+/* Scroll Animation */
+.product-card {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.product-card.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+/*Account Drop Down*/
+#accountDropdownMenu {
+  transition: all 0.25s ease;
+  transform: translateY(10px);
+}
+
+.group:hover #accountDropdownMenu {
+  transform: translateY(0);
+}
+
+
+        .action-icon {
+            @apply p-2.5 rounded-full transition duration-300 text-slate-500 hover:bg-violet-50 hover:text-violet-600;
+        }
+        .footer-link {
+            @apply text-slate-400 hover:text-white transition duration-200 block mb-3 text-sm font-medium;
+        }
+
+        .footer-heading {
+            @apply text-xs font-bold uppercase tracking-widest mb-6 text-white opacity-80;
+        }
+
+        .input-field {
+            @apply w-full px-4 py-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-violet-500/20 focus:border-violet-500 transition-all duration-200 bg-white text-sm;
+        }
+
+        .step-pill {
+            @apply h-1.5 flex-1 rounded-full bg-slate-200 transition-all duration-500;
+        }
+
+        .step-pill-active {
+            @apply bg-violet-600;
+        }
+
+        .payment-option {
+            @apply flex items-center justify-between p-5 rounded-2xl border border-slate-200 cursor-pointer transition-all hover:border-slate-400 hover:bg-slate-50;
+        }
+
+        .payment-option.active {
+            @apply border-2 border-slate-900 bg-white shadow-md scale-[1.01];
+        }
+
+        /* Radio Circle styling for maximum visibility */
+        .radio-dot {
+            @apply w-6 h-6 min-w-[1.5rem] min-h-[1.5rem] rounded-full border-2 border-slate-400 flex items-center justify-center transition-all bg-white text-transparent;
+        }
+
+        .active .radio-dot {
+            @apply border-slate-900 bg-slate-900 text-white;
+        }
+
+        /*Account Drop Down*/
+#accountDropdownMenu {
+  transition: all 0.25s ease;
+  transform: translateY(10px);
+}
+
+.group:hover #accountDropdownMenu {
+  transform: translateY(0);
+}
+
+    </style>
+</head>
+
+<body class="antialiased">
+
+    <!-- Notification Toast -->
+    <div id="messageBox" class="fixed top-24 right-5 bg-white shadow-2xl rounded-xl p-4 flex items-center gap-4 transform transition-all duration-300 z-[100] border-l-4 border-violet-600 hidden max-w-sm ring-1 ring-black/5">
+        <div>
+            <h4 class="font-bold text-sm text-slate-900" id="messageTitle">Notification</h4>
+            <p id="messageContent" class="text-xs text-slate-500 mt-1">Action completed.</p>
+        </div>
+        <button onclick="hideMessage()" class="text-slate-400 hover:text-slate-600">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+        </button>
+    </div>
+
+    <!-- Overlay -->
+    <div id="drawerOverlay" class="fixed inset-0 bg-slate-900/40 backdrop-blur-[2px] z-[60] hidden transition-opacity duration-300" onclick="closeAllDrawers()"></div>
+
+    
+    <!-- Wishlist Drawer -->
+    <div id="wishlistDrawer" class="side-drawer fixed right-0 top-0 h-full w-full max-w-md bg-white z-[70] shadow-2xl flex flex-col">
+        <div class="p-6 border-b border-slate-100 flex justify-between items-center">
+            <h3 class="text-xl font-bold text-slate-900 font-serif">
+                Your Wishlist
+            </h3>
+            <button onclick="toggleDrawer('wishlistDrawer')" class="p-2 rounded-full hover:bg-slate-50 transition">
+                <svg class="w-6 h-6 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+        </div>
+
+        <div id="wishlistItemsContainer" class="flex-grow overflow-y-auto p-6 space-y-4">
+            <div class="text-center py-24 text-slate-400">No items saved yet.</div>
+        </div>
+
+        <div class="p-6 bg-slate-50 border-t border-slate-100">
+            <button onclick="closeAllDrawers()" class="w-full py-4 border border-slate-200 text-slate-700 bg-white hover:bg-slate-50 hover:border-slate-300 font-medium rounded-xl transition-all">
+                Continue Shopping
+            </button>
+        </div>
+    </div>
+
+
+    <!-- Navigation -->
+    <header class="sticky top-0 z-30 bg-glass border-b border-slate-100/100 backdrop-blur-xl transition-all duration-300">
+
+        <!-- PROMO BAR -->
+        <div class="w-full bg-gradient-to-r from-violet-900 via-indigo-900 to-slate-900 overflow-hidden py-3 cursor-pointer relative z-40" onclick="handleAction('Comming Soon...')">
+            <div class="animate-ticker whitespace-nowrap">
+                <div class="px-4 text-[11px] font-bold tracking-[0.2em] text-white/90 flex items-center gap-16 uppercase">
+                    <span>Free Global Shipping on Orders Over ₹5,000</span>
+                    <span class="text-white/30">•</span>
+                    <span>Cyber Week: Up to 40% Off Select Hardware</span>
+                    <span class="text-white/30">•</span>
+                    <span>Use Code "WELCOME2026" for Extra Discount</span>
+                    <span class="text-white/30">•</span>
+                    <span>New Arrivals: The Future is Here</span>
+                    <span class="text-white/30">•</span>
+                    <span>Join the Gadgetique Elite Club</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-1 flex items-center justify-between gap-8">
+
+            <div class="flex-shrink-0">
+                <a href="#" class="text-3xl font-extrabold tracking-tight gradient-text brand-font">
+                    Gadgetique.
+                </a>
+            </div>
+
+            <div class="max-w-5xl mx-auto px-6 pt-10 pb-4">
+                <h1 class="text-3xl font-bold text-slate-900">Shopping Cart</h1>
+            </div>
+
+            <!-- Icons -->
+            <div class="flex items-center gap-3">
+
+                <!-- Wishlist -->
+                <form action="/auth/wishlist" method="get">
+                    <button type="submit" class="action-icon relative group">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+                        <span id="wishBadge" class="absolute top-0 right-0 bg-rose-500 text-white text-[10px] font-bold w-4 h-4 flex items-center justify-center rounded-full opacity-0 scale-0 transition-all duration-300">0</span>
+                    </button>
+                </form>
+                
+
+                <div class="relative z-40 ml-2 group">
+                     <!--User Name Button -->
+                    <button id="accountDropdownButton"
+                        class="flex items-center gap-2 px-1 py-1 rounded-full hover:bg-slate-50 transition duration-200 focus:outline-none ring-2 ring-transparent focus:ring-slate-100">
+                        <div class="w-9 h-9 rounded-full bg-gradient-to-br from-violet-100 to-fuchsia-100 flex items-center justify-center text-violet-700 font-bold text-xs shadow-inner">
+                             <span><%= user.charAt(0).toUpperCase() %></span>
+                        </div>
+                    </button>
+                    <!-- Drop down Menu -->
+                    <div id="accountDropdownMenu" class="absolute left-0 mt-1 w-48 bg-white border border-slate-100 rounded-2xl shadow-xl py-2 z-50 transform origin-top-right transition-all opacity-0 invisible group-hover:opacity-100 group-hover:visible">
+                        <div class="px-5 py-4 border-b border-slate-50">
+                             <p class="text-xs text-slate-400 uppercase font-bold tracking-wider mb-1">Signed in as</p>
+                             <p class="text-sm font-semibold text-slate-900 truncate"><%= user %></p>
+                        </div>
+                        <form action="/auth/home" method="get">
+                            <button type="submit" class="text-left block px-5 py-3 text-sm text-slate-600 hover:bg-slate-50 hover:text-violet-700 transition-colors w-full">My Homepage</button>
+                        </form>
+                        <!-- <a href="" class="block px-5 py-3 text-sm text-slate-600 hover:bg-slate-50 hover:text-violet-700 transition-colors"></a> -->
+                         <form action="/auth/profile" method="get">
+                            <button type="submit" class="text-left block px-5 py-3 text-sm text-slate-600 hover:bg-slate-50 hover:text-violet-700 transition-colors w-full">My Profile</button>
+                        </form>
+                        <div class="border-t border-slate-50 mt-1"></div>
+                        <form action="/auth/logout" method="get">
+                            <button type="submit" class="w-full text-left px-5 py-3 text-sm text-rose-500 hover:bg-rose-50 font-medium transition-colors rounded-b-xl">Sign Out</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+
+    <main class="max-w-5xl mx-auto px-6 py-3">
+        <div>
+            <nav class="flex mb-6 text-xs font-bold uppercase tracking-widest text-slate-400">
+                <a href="/auth/home" class="hover:text-violet-600">Home</a>
+                <span class="mx-2">/</span>
+                <span class="text-slate-900">Cart</span>
+            </nav>
+            
+        </div>
+
+        <!-- Table Header (Hidden on Mobile) -->
+        <div class="hidden md:grid grid-cols-12 gap-4 px-4 pb-4 border-b border-slate-200 text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400">
+            <div class="col-span-6">Product Details</div>
+            <div class="col-span-2 text-center">Price</div>
+            <div class="col-span-2 text-center">Quantity</div>
+            <div class="col-span-2 text-right">Total</div>
+        </div>
+
+        <div id="cartList" class="divide-y divide-slate-100">
+
+            <% if(cart && cart.items.length > 0){ %>
+            <% cart.items.forEach(item => { %>
+                        
+            <!-- PRODUCT -->
+            <div class="cart-item grid grid-cols-12 items-center gap-4 px-4 py-6 hover:bg-slate-50 transition"
+                data-id="<%= item.product._id %>"
+                data-price="<%= item.product.price %>">
+
+                <div class="col-span-12 md:col-span-6 flex items-center gap-4">
+                    <img src="/uploads/products/<%= item.product.image %>"
+                    class="w-20 h-20 object-cover rounded-xl border border-slate-200">
+                <div>
+
+                <h3 class="font-semibold text-slate-900 text-sm"><%= item.product.name %></h3>
+                <p class="text-xs text-slate-400 mt-1"><%= item.product.description %></p>
+
+                <button onclick="removeItem('<%= item.product._id %>')"
+                    class="text-xs text-red-500 hover:underline mt-2">Remove
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- PRICE -->
+        <div class="col-span-4 md:col-span-2 text-center font-medium text-slate-700">
+            ₹<%= item.product.price %>.00
+        </div>
+
+
+        <!-- QUANTITY -->
+        <div class="cart-qty col-span-4 md:col-span-2 flex justify-center">
+        
+            <div class="flex items-center border border-slate-200 rounded-lg overflow-hidden">
+        
+                <button onclick="updateQty('<%= item.product._id %>','decrease')"
+                    class="px-3 py-1 hover:bg-slate-100 decrease-btn">  -
+                </button>
+
+                <span class="px-4 font-semibold qty">
+                    <%= item.quantity %>
+                </span>
+
+                <button  onclick="updateQty('<%= item.product._id %>','increase')"
+                    class="px-3 py-1 hover:bg-slate-100">  +
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- TOTAL -->
+        <div class="col-span-4 md:col-span-2 text-right font-semibold text-violet-700 item-total">
+            ₹<%= item.product.price * item.quantity %>
+        
+            <button   onclick="removeItem('<%= item.product._id %>')"
+                class="block text-xs text-red-500 hover:underline mt-1"> Remove
+            </button>
+        
+        </div>
+        
+        </div>  
+        <% } ) %>
+        <% } %>
+
+    </div>
+
+        <!-- Empty State -->
+        <div id="emptyState" class="hidden py-32 text-center">
+            <div class="mb-6 opacity-20 flex justify-center">
+                <svg class="w-20 h-20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+            </div>
+            <p class="serif text-2xl text-slate-400 mb-8">Your bag is currently empty.</p>
+            <button onclick="window.location.reload()" class="text-xs font-bold uppercase tracking-widest bg-slate-900 text-white px-10 py-4 rounded-full hover:shadow-xl transition-all">
+                Explore Products
+            </button>
+        </div>
+
+        <!-- Footer / Calculation -->
+        <div id="cartFooter" class="mt-5 pt-5 border-t border-slate-200">
+            <div class="flex flex-col gap-8">
+                <!-- Subtotal Row -->
+                <div class="flex justify-between items-end">
+                    <div class="space-y-1">
+                        <!-- <span class="text-[10px] font-bold uppercase tracking-[0.3em] text-slate-400">Grand Total</span>
+                        <div id="grandTotal" class="text-5xl font-bold tracking-tighter">₹0</div> -->
+                    </div>
+                    <div class="text-right hidden md:block space-y-2">
+                        <span class="text-[15px] font-bold uppercase tracking-[0.3em] text-slate-400">Subtotal</span>
+                        <div id="totalQty" class="text-[12px] font-bold uppercase tracking-[0.3em] ">0 items</div>
+                        <div id="grandTotal" class="text-2xl font-bold text-red-700">₹0</div>
+                    </div>
+                </div>
+
+                <!-- Action Button -->
+                 <form action="/auth/checkout" method="get">
+                    <button type="submit" class="group w-full bg-slate-900 text-white py-6 rounded-2xl flex items-center justify-center gap-4 hover:bg-black transition-all shadow-2xl shadow-slate-200">
+                        <span class="text-xs font-bold uppercase tracking-[0.25em]">Proceed to Checkout</span>
+                        <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                    </button>
+                 </form>
+                
+            </div>
+        </div>
+    </main>
+
+<script>
+     
+    function calculateCartTotal() {
+
+  let total = 0;
+  let totalQty = 0;
+
+  document.querySelectorAll(".cart-item").forEach(item => {
+
+    const price = Number(item.dataset.price);
+    const qty = Number(item.querySelector(".qty").textContent);
+
+    const itemTotal = price * qty;
+
+    item.querySelector(".item-total").textContent =
+      "₹" + itemTotal.toLocaleString("en-IN");
+
+    total += itemTotal;
+    totalQty += qty;
+
+  });
+
+  document.getElementById("grandTotal").textContent =
+    "₹" + total.toLocaleString("en-IN");
+
+  document.getElementById("totalQty").textContent =
+    ` (${totalQty}) items`;
+
+}
+
+    async function updateQty(productId, action) {
+
+        const item = document.querySelector(`.cart-item[data-id="${productId}"]`);
+        if (!item) return;
+
+    const qtyElement = item.querySelector(".qty");
+    const decreaseBtn = item.querySelector(".decrease-btn");
+
+    let qty = parseInt(qtyElement.textContent);
+
+    if (action === "increase") qty++;
+    if (action === "decrease") {
+        if (qty <= 1) {
+        decreaseBtn.disabled = true;
+        decreaseBtn.classList.add("opacity-40", "cursor-not-allowed");
+        return;
+        }
+        qty--;
+    }
+
+    // Enable button again if qty > 1
+    if (qty > 1) {
+      decreaseBtn.disabled = false;
+      decreaseBtn.classList.remove("opacity-40", "cursor-not-allowed");
+    }
+
+    qtyElement.textContent = qty;
+
+    await fetch("/auth/cart/update", {
+        method: "POST",
+        headers: {
+        "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ productId, action })
+     });
+    calculateCartTotal();
+    }
+    
+    async function removeItem(productId) {
+
+      const item = document.querySelector(`.cart-item[data-id="${productId}"]`);
+      if (!item) return;
+
+      await fetch("/auth/cart/remove", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ productId })
+      });
+
+      item.remove();
+
+      calculateCartTotal();
+    }
+
+    // --- Drawer Controls ---
+        function toggleDrawer(id) {
+            const drawer = document.getElementById(id);
+            const overlay = document.getElementById('drawerOverlay');
+            
+            // Close other drawers if open
+            document.querySelectorAll('.side-drawer').forEach(d => {
+                if(d.id !== id) d.classList.remove('open');
+            });
+
+            const isOpen = drawer.classList.toggle('open');
+            overlay.classList.toggle('hidden', !isOpen);
+            document.body.style.overflow = isOpen ? 'hidden' : 'auto';
+        }
+
+        function closeAllDrawers() {
+            document.querySelectorAll('.side-drawer').forEach(d => d.classList.remove('open'));
+            document.getElementById('drawerOverlay').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+            closeQuickView();
+        }
+
+    document.addEventListener("DOMContentLoaded", () => {
+        calculateCartTotal();
+    });
+</script>
+</body>
+</html>
