@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gadgetique | Sign In</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Professional Typography matching the homepage */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700;800&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #1e293b;
+        }
+
+        h1, h2, h3, .brand-font {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #7c3aed 0%, #db2777 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .input-field {
+            @apply w-full px-5 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-violet-500/20 focus:border-violet-500 transition-all duration-300 placeholder-slate-400 text-slate-700;
+        }
+
+        .btn-primary {
+            @apply w-full py-4 bg-slate-900 hover:bg-violet-700 text-white font-medium rounded-xl shadow-lg shadow-violet-900/10 transition-all duration-300 transform active:scale-[0.98];
+        }
+
+        /* Abstract background elements for a professional touch */
+        .bg-blob {
+            position: fixed;
+            z-index: -1;
+            filter: blur(80px);
+            opacity: 0.15;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+
+<body class="min-h-screen flex items-center justify-center p-6 relative overflow-hidden">
+
+    <!-- Notification Toast -->
+    <div id="messageBox" class="fixed top-24 right-5 bg-white shadow-2xl rounded-xl p-4 flex items-center gap-4 transform transition-all duration-300 z-50 border-l-4 border-violet-600 hidden max-w-sm ring-1 ring-black/5">
+        <div>
+            <h4 class="font-bold text-sm text-slate-900" id="messageTitle">Notification</h4>
+            <p id="messageContent" class="text-xs text-slate-500 mt-1">Action completed.</p>
+        </div>
+        <button onclick="hideMessage()" class="text-slate-400 hover:text-slate-600">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+        </button>
+    </div>
+    
+    <!-- Background Decoration -->
+    <div class="bg-blob w-96 h-96 bg-violet-400 -top-20 -left-20"></div>
+    <div class="bg-blob w-96 h-96 bg-fuchsia-400 -bottom-20 -right-20"></div>
+
+    <div class="w-full max-w-md">
+        <!-- Brand Header -->
+        <div class="text-center mb-3">
+            <a href="/" class="text-4xl font-extrabold tracking-tight gradient-text brand-font mb-4 block">
+                Gadgetique.
+            </a>
+            
+        </div>
+
+        <!-- Login Card -->
+        <div class="bg-white rounded-3xl p-5 md:p-7 shadow-2xl shadow-slate-300/70 border border-slate-100">
+
+            <h2 class="text-2xl font-bold text-violet-900 text-center">Welcome Back</h2>
+            <p class="text-slate-500 text-center mb-5">Sign in to access your premium collection</p>
+            
+            <!-- Alert System -->
+            <% if (query.error) { %>
+            <div class="mb-4 p-2 rounded-xl bg-rose-50 border border-rose-100 text-rose-600 text-sm font-medium flex items-center gap-3">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                <%= query.error %>
+            </div>
+            <% } %>
+
+            <form action="/auth/login" method="post" class="space-y-6">
+                <!-- Email -->
+                <div>
+                    <label for="email" class="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-2 ml-1">Email Address</label>
+                    <input type="email" id="email" name="email" placeholder="name@example.com" required class="input-field border border-slate-200 rounded-md w-full h-10">
+                </div>
+
+                <!-- Password -->
+                <div>
+                    <div class="flex justify-between mb-2 ml-1">
+                        <label for="password" class="block text-xs font-bold text-slate-400 uppercase tracking-widest">Password</label>
+                        <a href="/auth/forgot" class="text-sm font-bold text-violet-600 hover:text-violet-800 transition">Forgot?</a>
+                    </div>
+                    <input type="password" id="password" name="password" placeholder="••••••••" required class="input-field border border-slate-200 rounded-md w-full h-10">
+                </div>
+
+                <!-- Remember Me -->
+                <!-- <div class="flex items-center ml-1">
+                    <input id="rememberMe" name="rememberMe" type="checkbox" class="h-4 w-4 text-violet-600 border-slate-300 rounded focus:ring-violet-500">
+                    <label for="rememberMe" class="ml-2 text-sm text-slate-500 font-medium">Keep me signed in</label>
+                </div> -->
+
+                <!-- Login Button -->
+                <button type="submit" class="w-full flex items-center justify-center py-3.5 px-4 border border-slate-200 rounded-xl text-sm font-bold text-slate-700 bg-white hover:bg-violet-500 hover:text-white transition duration-200 gap-3 group">
+                    Sign In
+                </button>
+            </form>
+
+            <!-- OR Divider -->
+            <div class="relative my-5">
+                <div class="absolute inset-0 flex items-center"><div class="w-full border-t border-slate-100"></div></div>
+                <div class="relative flex justify-center text-xs uppercase tracking-widest font-bold text-slate-300">
+                    <span class="bg-white px-4">Or continue with</span>
+                </div>
+            </div>
+
+            <!-- Social Login -->
+            <a href="/auth/google" class="w-full flex items-center justify-center py-3.5 px-4 border border-slate-200 rounded-xl text-sm font-bold text-slate-700 bg-white hover:bg-slate-50 transition duration-200 gap-3 group">
+                <svg class="w-5 h-5 transition-transform group-hover:scale-110" viewBox="0 0 24 24">
+                    <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+                    <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                    <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/>
+                    <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+                </svg>
+                Sign in with Google
+            </a>
+        </div>
+
+        <!-- Footer Link -->
+        <p class="text-center text-sm mt-8 text-slate-500 font-medium">
+            New to Gadgetique? 
+            <a href="/auth/signup" class="text-violet-600 font-bold hover:underline ml-1">Create an account</a>
+        </p>
+    </div>
+    <script>
+         //Sysytem Notification
+        function handleAction(action) {
+            const box = document.getElementById('messageBox');
+            const content = document.getElementById('messageContent');
+            const title = document.getElementById('messageTitle');
+            
+            title.innerText = "System Notification";
+            content.innerText = `${action}`;
+            
+            box.classList.remove('hidden');
+            box.classList.add('flex');
+            box.classList.add('translate-y-2');
+            
+            setTimeout(() => {
+                 box.classList.remove('translate-y-2');
+                 hideMessage();
+            }, 3000);
+        }
+
+        function hideMessage() {
+            const box = document.getElementById('messageBox');
+            box.classList.add('hidden');
+            box.classList.remove('flex');
+        }
+    </script>
+</body>
+
+</html>

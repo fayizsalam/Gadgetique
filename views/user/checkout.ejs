@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout | Gadgetique Premium Tech</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700;800&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            /* Pure White */
+            color: #1e293b;
+            /* Slate 800 */
+        }
+
+        h1, h2, h3, .brand-font {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .text-primary {
+            color: #7c3aed;
+            /* Violet 600 */
+        }
+
+        .bg-primary {
+            background-color: #7c3aed;
+        }
+
+        .bg-glass {
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(12px);
+        }
+
+        .action-icon {
+            @apply p-2.5 rounded-full transition duration-300 text-slate-500 hover:bg-violet-50 hover:text-violet-600;
+        }
+
+        /* Modern Nav Links */
+        .nav-link {
+            @apply px-5 py-2.5 font-medium text-sm text-slate-600 rounded-full transition-all duration-300 hover:bg-slate-50 hover:text-violet-700;
+        }
+
+        .nav-link-active {
+            @apply bg-violet-50 text-violet-700 font-semibold shadow-sm ring-1 ring-violet-100;
+        }
+
+        .footer-link {
+            @apply text-slate-400 hover:text-white transition duration-200 block mb-3 text-sm font-medium;
+        }
+
+        .footer-heading {
+            @apply text-xs font-bold uppercase tracking-widest mb-6 text-white opacity-80;
+        }
+
+        /* Slide Card Height */
+        .slide-card-height {
+            height: 30rem;
+        }
+
+        @media (min-width: 768px) {
+            .slide-card-height {
+                height: 26rem;
+            }
+        }
+        
+        /* Ticker Animation */
+        @keyframes ticker {
+            0% { transform: translateX(0%); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .animate-ticker {
+            display: inline-block;
+            white-space: nowrap;
+            animation: ticker 40s linear infinite;
+        }
+
+        /* Side Drawers */
+        .side-drawer.open {
+            transform: translateX(0);
+        }
+        .side-drawer {
+            transform: translateX(100%);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        /* Product Card Styling */
+        .product-card {
+            transition: all 0.4s ease;
+        }
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 10px 10px -5px rgba(0, 0, 0, 0.01);
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #7c3aed 0%, #db2777 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+         .nav-link {
+    position: relative;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #475569; /* slate-600 */
+    transition: color 0.25s ease;
+  }
+
+  .nav-link::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -6px;
+    width: 0;
+    height: 2px;
+    background-color: #7c3aed; /* violet-600 */
+    border-radius: 9999px;
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+  }
+
+  .nav-link:hover {
+    color: #7c3aed;
+  }
+
+  .nav-link:hover::after {
+    width: 70%;
+  }
+
+  .nav-link-active {
+    color: #7c3aed;
+    font-weight: 600;
+  }
+
+  .nav-link-active::after {
+    width: 70%;
+  }
+
+  /* Clearance special */
+  .nav-link-clearance:hover {
+    color: #e11d48; /* rose-600 */
+  }
+
+  .nav-link-clearance::after {
+    background-color: #e11d48;
+  }
+  html {
+  scroll-behavior: smooth;
+}
+
+/* Scroll Animation */
+.product-card {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.product-card.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+/*Account Drop Down*/
+#accountDropdownMenu {
+  transition: all 0.25s ease;
+  transform: translateY(10px);
+}
+
+.group:hover #accountDropdownMenu {
+  transform: translateY(0);
+}
+
+
+        .action-icon {
+            @apply p-2.5 rounded-full transition duration-300 text-slate-500 hover:bg-violet-50 hover:text-violet-600;
+        }
+        .footer-link {
+            @apply text-slate-400 hover:text-white transition duration-200 block mb-3 text-sm font-medium;
+        }
+
+        .footer-heading {
+            @apply text-xs font-bold uppercase tracking-widest mb-6 text-white opacity-80;
+        }
+
+        .input-field {
+            @apply w-full px-4 py-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-violet-500/20 focus:border-violet-500 transition-all duration-200 bg-white text-sm;
+        }
+
+        .step-pill {
+            @apply h-1.5 flex-1 rounded-full bg-slate-200 transition-all duration-500;
+        }
+
+        .step-pill-active {
+            @apply bg-violet-600;
+        }
+
+        .payment-option {
+            @apply flex items-center justify-between p-5 rounded-2xl border border-slate-200 cursor-pointer transition-all hover:border-slate-400 hover:bg-slate-50;
+        }
+
+        .payment-option.active {
+            @apply border-2 border-slate-900 bg-white shadow-md scale-[1.01];
+        }
+
+        /* Radio Circle styling for maximum visibility */
+        .radio-dot {
+            @apply w-6 h-6 min-w-[1.5rem] min-h-[1.5rem] rounded-full border-2 border-slate-400 flex items-center justify-center transition-all bg-white text-transparent;
+        }
+
+        .active .radio-dot {
+            @apply border-slate-900 bg-slate-900 text-white;
+        }
+
+        /*Account Drop Down*/
+#accountDropdownMenu {
+  transition: all 0.25s ease;
+  transform: translateY(10px);
+}
+
+.group:hover #accountDropdownMenu {
+  transform: translateY(0);
+}
+
+    </style>
+</head>
+
+<body class="antialiased">
+
+    <!-- Notification Toast -->
+    <div id="messageBox" class="fixed top-24 right-5 bg-white shadow-2xl rounded-xl p-4 flex items-center gap-4 transform transition-all duration-300 z-[100] border-l-4 border-violet-600 hidden max-w-sm ring-1 ring-black/5">
+        <div>
+            <h4 class="font-bold text-sm text-slate-900" id="messageTitle">Notification</h4>
+            <p id="messageContent" class="text-xs text-slate-500 mt-1">Action completed.</p>
+        </div>
+        <button onclick="hideMessage()" class="text-slate-400 hover:text-slate-600">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+        </button>
+    </div>
+
+    <!-- Overlay -->
+    <div id="drawerOverlay" class="fixed inset-0 bg-slate-900/40 backdrop-blur-[2px] z-[60] hidden transition-opacity duration-300" onclick="closeAllDrawers()"></div>
+
+
+    <!-- Cart Drawer -->
+    <div id="cartDrawer" class="side-drawer fixed right-0 top-0 h-full w-full max-w-md bg-white z-[70] shadow-2xl flex flex-col">
+        <div class="p-6 border-b border-slate-100 flex justify-between items-center bg-white">
+            <h3 class="text-xl font-bold text-slate-900 font-serif">
+                Shopping Cart
+            </h3>
+            <button onclick="toggleDrawer('cartDrawer')" class="p-2 rounded-full hover:bg-slate-50 transition">
+                <svg class="w-6 h-6 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+        </div>
+
+        <div id="cartItemsContainer" class="flex-grow overflow-y-auto p-6 space-y-4">
+            <div class="text-center py-24 flex flex-col items-center justify-center">
+                <div class="w-16 h-16 bg-slate-50 rounded-full flex items-center justify-center mb-4">
+                    <svg class="w-8 h-8 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+                </div>
+                <p class="text-slate-500 font-medium">Your cart is empty</p>
+                <button onclick="closeAllDrawers()" class="mt-4 text-violet-600 text-sm font-semibold hover:underline">Start Shopping</button>
+            </div>
+        </div>
+
+        <div class="p-6 bg-slate-50 border-t border-slate-100">
+            <div class="flex justify-between items-center mb-6">
+                <span class="text-slate-500 font-medium">Subtotal</span>
+                <span id="cartTotalDisplay" class="text-2xl font-bold text-slate-900 brand-font">₹0.00</span>
+            </div>
+            <button onclick="handleAction('Checkout')" class="w-full py-4 bg-slate-900 hover:bg-violet-700 text-white font-medium rounded-xl shadow-lg shadow-violet-900/10 transition-all duration-300 transform active:scale-[0.98]">
+                Proceed to Checkout
+            </button>
+        </div>
+    </div>
+
+    <!-- Wishlist Drawer -->
+    <div id="wishlistDrawer" class="side-drawer fixed right-0 top-0 h-full w-full max-w-md bg-white z-[70] shadow-2xl flex flex-col">
+        <div class="p-6 border-b border-slate-100 flex justify-between items-center">
+            <h3 class="text-xl font-bold text-slate-900 font-serif">
+                Your Wishlist
+            </h3>
+            <button onclick="toggleDrawer('wishlistDrawer')" class="p-2 rounded-full hover:bg-slate-50 transition">
+                <svg class="w-6 h-6 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+        </div>
+
+        <div id="wishlistItemsContainer" class="flex-grow overflow-y-auto p-6 space-y-4">
+            <div class="text-center py-24 text-slate-400">No items saved yet.</div>
+        </div>
+
+        <div class="p-6 bg-slate-50 border-t border-slate-100">
+            <button onclick="closeAllDrawers()" class="w-full py-4 border border-slate-200 text-slate-700 bg-white hover:bg-slate-50 hover:border-slate-300 font-medium rounded-xl transition-all">
+                Continue Shopping
+            </button>
+        </div>
+    </div>
+
+
+    <!-- Navigation -->
+    <header class="sticky top-0 z-30 bg-glass border-b border-slate-100/50 backdrop-blur-xl transition-all duration-300">
+
+        <!-- PROMO BAR -->
+        <div class="w-full bg-gradient-to-r from-violet-900 via-indigo-900 to-slate-900 overflow-hidden py-3 cursor-pointer relative z-40" onclick="handleAction('Comming Soon...')">
+            <div class="animate-ticker whitespace-nowrap">
+                <div class="px-4 text-[11px] font-bold tracking-[0.2em] text-white/90 flex items-center gap-16 uppercase">
+                    <span>Free Global Shipping on Orders Over ₹5,000</span>
+                    <span class="text-white/30">•</span>
+                    <span>Cyber Week: Up to 40% Off Select Hardware</span>
+                    <span class="text-white/30">•</span>
+                    <span>Use Code "WELCOME2026" for Extra Discount</span>
+                    <span class="text-white/30">•</span>
+                    <span>New Arrivals: The Future is Here</span>
+                    <span class="text-white/30">•</span>
+                    <span>Join the Gadgetique Elite Club</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex items-center justify-between gap-8">
+
+            <div class="flex-shrink-0">
+                <a href="#" class="text-3xl font-extrabold tracking-tight gradient-text brand-font">
+                    Gadgetique.
+                </a>
+            </div>
+
+            <!-- Icons -->
+            <div class="flex items-center gap-3">
+
+                <!-- Wishlist -->
+                <button class="action-icon relative group" onclick="toggleDrawer('wishlistDrawer')">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+                    <span id="wishBadge" class="absolute top-0 right-0 bg-rose-500 text-white text-[10px] font-bold w-4 h-4 flex items-center justify-center rounded-full opacity-0 scale-0 transition-all duration-300">0</span>
+                </button>
+
+                <!-- Cart -->
+                 <form action="/auth/cart" method="get">
+                    <button type="submit"  class="action-icon relative group">
+                    <div class="relative">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
+                        </svg>
+                        <span id="cartBadge" class="absolute -top-1 -right-1 bg-violet-600 text-white text-[10px] font-bold w-4 h-4 flex items-center justify-center rounded-full opacity-0 scale-0 transition-all duration-300">0</span>
+                    </div>
+                </button>
+                 </form>
+
+                <div class="relative z-40 ml-2 group">
+                     <!--User Name Button -->
+                    <button id="accountDropdownButton"
+                        class="flex items-center gap-2 px-1 py-1 rounded-full hover:bg-slate-50 transition duration-200 focus:outline-none ring-2 ring-transparent focus:ring-slate-100">
+                        <div class="w-9 h-9 rounded-full bg-gradient-to-br from-violet-100 to-fuchsia-100 flex items-center justify-center text-violet-700 font-bold text-xs shadow-inner">
+                             <span><%= user.username.charAt(0).toUpperCase() %></span>
+                        </div>
+                    </button>
+                    <!-- Drop down Menu -->
+                    <div id="accountDropdownMenu" class="absolute right-0 mt-3 w-56 bg-white border border-slate-100 rounded-2xl shadow-xl py-2 z-50 transform origin-top-right transition-all opacity-0 invisible group-hover:opacity-100 group-hover:visible">
+                        <div class="px-5 py-4 border-b border-slate-50">
+                             <p class="text-xs text-slate-400 uppercase font-bold tracking-wider mb-1">Signed in as</p>
+                             <p class="text-sm font-semibold text-slate-900 truncate"><%= user.username %></p>
+                        </div>
+                        <form action="/auth/home" method="get">
+                            <button type="submit" class="text-left block px-5 py-3 text-sm text-slate-600 hover:bg-slate-50 hover:text-violet-700 transition-colors w-full">My Homepage</button>
+                        </form>
+                        <!-- <a href="" class="block px-5 py-3 text-sm text-slate-600 hover:bg-slate-50 hover:text-violet-700 transition-colors"></a> -->
+                         <form action="/auth/profile" method="get">
+                            <button type="submit" class="text-left block px-5 py-3 text-sm text-slate-600 hover:bg-slate-50 hover:text-violet-700 transition-colors w-full">My Profile</button>
+                        </form>
+                        <div class="border-t border-slate-50 mt-1"></div>
+                        <form action="/auth/logout" method="get">
+                            <button type="submit" class="w-full text-left px-5 py-3 text-sm text-rose-500 hover:bg-rose-50 font-medium transition-colors rounded-b-xl">Sign Out</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+            
+            <!-- Left: Checkout Flow -->
+            <div class="lg:col-span-7 space-y-10">
+                
+                <!-- Progress Indicator -->
+                <div class="flex gap-3 mb-8">
+                    <div class="step-pill step-pill-active"></div>
+                    <div class="step-pill step-pill-active"></div>
+                    <div class="step-pill"></div>
+                </div>
+
+                <!-- Shipping Section -->
+                <section class="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm transition-all duration-500">
+                    <div class="flex justify-between items-start mb-6">
+                        <h3 class="text-xl font-bold brand-font text-slate-900">Shipping Information</h3>
+                        <button id="changeAddrBtn" onclick="toggleAddressList()" class="text-xs font-bold text-violet-600 hover:text-violet-700 uppercase tracking-widest flex items-center gap-1.5 transition-colors">
+                            <span id="btnText">Change</span>
+                        </button>
+                    </div>
+
+                    <!-- Current Selected Address -->
+                    <div id="currentAddress" class="bg-slate-50 border border-slate-200 rounded-2xl p-6 relative text-sm">
+                        <div class="absolute top-4 right-6">
+                            <span class="text-[10px] font-bold text-green-600 bg-green-100 px-2.5 py-1 rounded-full uppercase tracking-tight">Active</span>
+                        </div>
+                        <% if(user.addresses.length > 0){ %>
+                        <% const defaultAddress = user.addresses.find(a => a.isDefault) || user.addresses[0]; %>
+                        <p class="font-bold text-slate-900" id="display-name">
+                         <%= defaultAddress.AddressType %>
+                        </p>
+                        <p class="text-slate-600 mt-1 leading-relaxed" id="display-address">
+                            <%= defaultAddress.BuildingName %>, <%= defaultAddress.street %><br>
+                            <%= defaultAddress.city %>, <%= defaultAddress.state %> <%= defaultAddress.zip %>
+                        </p>
+                    </div>
+
+                    <!-- Address Selection List (Inline) -->
+                    <div id="addressList" class="hidden space-y-4 mt-2">                
+                        <% user.addresses.forEach((addr, index) => { %>
+                    
+                        <div class="address-option <%= addr.isDefault ? 'active' : '' %>">
+                          <div class="flex items-start gap-4">
+                        
+                            <div class="radio-dot mt-1"></div>
+                        
+                            <div class="flex flex-col text-sm">
+                                <div class="flex items-center gap-2">
+                                    <span class="font-bold text-slate-900">
+                                      <%= addr.AddressType %>
+                                    </span>
+                                
+                                    <% if(addr.isDefault){ %>
+                                    <span class="text-[10px] bg-slate-100 text-slate-500 px-1.5 py-0.5 rounded">
+                                      Default
+                                    </span>
+                                    <% } %>                            
+                                </div>
+                          
+                              <span class="text-slate-500 mt-1 leading-relaxed">
+                                <%= addr.BuildingName %>, <%= addr.street %>, 
+                                <%= addr.city %>, <%= addr.state %> <%= addr.zip %>
+                              </span>
+                          
+                            </div>
+                        
+                        </div>
+                    </div>
+
+                    <% } else { %>
+
+                    <p class="text-slate-500 text-sm">No address found. Please add an address.</p>
+
+                    <% } %> 
+
+                    </div>
+                </section>
+
+                <!-- 2. Payment Section -->
+                <section class="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm">
+                    <h3 class="text-xl font-bold brand-font text-slate-900 mb-6">Payment Method</h3>
+                    
+                    <div class="space-y-4">
+                        <!-- Saved Cards -->
+                        <div onclick="selectPayment('saved')" id="pay-saved" class="payment-option active">
+                            <div class="flex items-center gap-4">
+                                <div class="radio-dot">
+                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                                </div>
+                                <div class="flex flex-col text-sm">
+                                    <span class="font-bold text-slate-900">Saved Cards</span>
+                                    <span class="text-[10px] text-slate-500 uppercase font-medium">Visa ending in 4242</span>
+                                </div>
+                            </div>
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg" class="h-3 opacity-80">
+                        </div>
+
+                        <!-- Saved Card Details -->
+                        <div id="saved-details" class="bg-slate-50 rounded-2xl p-6 mb-4 border border-slate-200">
+                            <div class="flex justify-between items-start mb-4">
+                                <h4 class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Active Card</h4>
+                                <button class="text-[10px] font-bold text-violet-600 hover:text-violet-700 uppercase tracking-widest flex items-center gap-1.5">
+                                    Change Card
+                                </button>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-12 h-8 bg-white rounded-md border border-slate-300 flex items-center justify-center p-1 shadow-sm">
+                                        <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg" class="w-full h-auto">
+                                    </div>
+                                    <div class="text-sm">
+                                        <p class="font-bold text-slate-900">•••• 4242</p>
+                                        <p class="text-[10px] text-slate-500 font-bold">12/26</p>
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">CVV</label>
+                                    <input type="password" placeholder="•••" class="w-14 px-2 py-1.5 rounded-lg border border-slate-300 text-center text-xs outline-none bg-white focus:ring-1 focus:ring-slate-900">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- New Credit/Debit Card -->
+                        <div onclick="selectPayment('new-card')" id="pay-new-card" class="payment-option">
+                            <div class="flex items-center gap-4">
+                                <div class="radio-dot"></div>
+                                <div class="flex flex-col text-sm">
+                                    <span class="font-bold text-slate-900">Credit / Debit Card</span>
+                                    <span class="text-[10px] text-slate-500 uppercase font-medium">Use a new card for this purchase</span>
+                                </div>
+                            </div>
+                            <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                        </div>
+
+                        <!-- New Card Details Form -->
+                        <div id="new-card-details" class="hidden bg-slate-50 rounded-2xl p-6 mb-4 border border-slate-200 space-y-4">
+                            <div>
+                                <label class="block text-[10px] font-bold text-slate-500 uppercase mb-2">Card Number</label>
+                                <div class="relative">
+                                    <input type="text" placeholder="0000 0000 0000 0000" class="input-field pr-12">
+                                    <div class="absolute right-4 top-1/2 -translate-y-1/2 flex gap-1">
+                                        <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg" class="h-3 grayscale opacity-40">
+                                        <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" class="h-3 grayscale opacity-40">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-[10px] font-bold text-slate-500 uppercase mb-2">Expiry Date</label>
+                                    <input type="text" placeholder="MM / YY" class="input-field">
+                                </div>
+                                <div>
+                                    <label class="block text-[10px] font-bold text-slate-500 uppercase mb-2">CVV</label>
+                                    <input type="password" placeholder="•••" class="input-field">
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-2 pt-2">
+                                <input type="checkbox" id="save-card" class="rounded text-slate-900 focus:ring-slate-900">
+                                <label for="save-card" class="text-xs text-slate-500">Save this card for future payments</label>
+                            </div>
+                        </div>
+
+                        <!-- UPI -->
+                        <div onclick="selectPayment('upi')" id="pay-upi" class="payment-option">
+                            <div class="flex items-center gap-4">
+                                <div class="radio-dot"></div>
+                                <div class="flex flex-col text-sm">
+                                    <span class="font-bold text-slate-900">UPI (GPay / PhonePe / Paytm)</span>
+                                    <span class="text-[10px] text-slate-500 uppercase font-medium">Instant transfer via app</span>
+                                </div>
+                            </div>
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/f/f2/Google_Pay_Logo.svg" class="h-4">
+                        </div>
+
+                        <!-- UPI Details -->
+                        <div id="upi-details" class="hidden bg-slate-50 rounded-2xl p-6 mb-4 border border-slate-200">
+                            <label class="block text-xs font-bold text-slate-500 uppercase mb-2">Enter UPI ID</label>
+                            <div class="flex gap-2">
+                                <input type="text" placeholder="username@upi" class="input-field">
+                                <button class="px-6 bg-slate-900 text-white rounded-xl text-xs font-bold uppercase hover:bg-slate-800 transition">Verify</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 3. Order Summary -->
+                <section class="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden text-sm">
+                    <div class="p-8 border-b border-slate-100 flex justify-between items-center">
+                        <h3 class="text-xl font-bold brand-font text-slate-900">Review Your Order</h3>
+                        <span class="text-xs font-bold text-violet-600 bg-violet-50 px-3 py-1 rounded-full uppercase">2 Items</span>
+                    </div>
+                    <div class="p-8 space-y-6">
+                        <div class="flex gap-6 items-center">
+                            <img src="https://images.unsplash.com/photo-1546435770-a3e426bf472b?q=80&w=200&auto=format&fit=crop" class="w-16 h-16 rounded-xl object-cover border border-slate-100">
+                            <div class="flex-grow">
+                                <h4 class="font-bold text-slate-900">Sony WH-1000XM5</h4>
+                                <p class="text-xs text-slate-400 mt-0.5">Midnight Blue</p>
+                            </div>
+                            <p class="font-bold text-slate-900">₹29,999</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Right: Total -->
+            <div class="lg:col-span-5">
+                <div class="lg:sticky lg:top-8 space-y-6">
+                    <div class="bg-slate-900 rounded-[2.5rem] p-8 text-white shadow-2xl">
+                        <h3 class="text-xl font-bold brand-font mb-8">Checkout Total</h3>
+                        
+                        <div class="space-y-4">
+                            <div class="flex justify-between text-slate-400 text-sm">
+                                <span>Subtotal</span>
+                                <span class="text-white font-medium">₹39,494.00</span>
+                            </div>
+                            <div class="flex justify-between text-slate-400 text-sm border-t border-slate-800 pt-6 mt-6">
+                                <div class="flex flex-col">
+                                    <p class="text-[10px] text-slate-500 font-bold uppercase tracking-widest">Grand Total</p>
+                                    <p class="text-4xl font-bold brand-font mt-1">₹46,602.92</p>
+                                </div>
+                                <p class="text-[10px] text-slate-500 font-medium self-end mb-1">INR</p>
+                            </div>
+                        </div>
+
+                        <button onclick="simulateOrder()" class="w-full mt-10 py-5 bg-white text-slate-900 rounded-2xl font-bold text-lg hover:bg-slate-200 transition-all active:scale-95 shadow-lg flex items-center justify-center gap-3">
+                            Complete Purchase
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Success Modal -->
+    <div id="successModal" class="fixed inset-0 z-[100] hidden items-center justify-center p-6">
+        <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-md"></div>
+        <div class="bg-white rounded-[2.5rem] p-10 max-w-md w-full relative z-10 text-center shadow-2xl">
+            <div class="w-20 h-20 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+            </div>
+            <h2 class="text-3xl font-bold mb-4 brand-font text-slate-900">Order Placed!</h2>
+            <p class="text-slate-500 text-sm mb-8">Thank you for choosing Gadgetique. Your order #GDTQ-88291 is confirmed.</p>
+            <button onclick="window.location.reload()" class="w-full py-4 bg-slate-900 text-white rounded-xl font-bold hover:bg-slate-700 transition-colors">Continue Shopping</button>
+        </div>
+    </div>
+
+    <script>
+        const checkIcon = `<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>`;
+
+        let isEditingAddress = false;
+
+        function toggleAddressList() {
+            isEditingAddress = !isEditingAddress;
+            const list = document.getElementById('addressList');
+            const current = document.getElementById('currentAddress');
+            const btnText = document.getElementById('btnText');
+
+            if (isEditingAddress) {
+                list.classList.remove('hidden');
+                current.classList.add('hidden');
+                btnText.innerText = 'Cancel';
+            } else {
+                list.classList.add('hidden');
+                current.classList.remove('hidden');
+                btnText.innerText = 'Change';
+            }
+        }
+
+        function selectAddress(id) {
+            document.querySelectorAll('.address-option').forEach(opt => opt.classList.remove('active'));
+            document.getElementById('addr-' + id).classList.add('active');
+
+            document.getElementById('display-name').innerText = addresses[id].name;
+            document.getElementById('display-address').innerHTML = addresses[id].address;
+
+            setTimeout(toggleAddressList, 300);
+        }
+
+        function selectPayment(type) {
+            document.querySelectorAll('.payment-option').forEach(opt => opt.classList.remove('active'));
+            document.getElementById('pay-' + type).classList.add('active');
+            
+            const savedDetails = document.getElementById('saved-details');
+            savedDetails.style.display = (type === 'saved') ? 'block' : 'none';
+        }
+
+        function selectPayment(type) {
+            // Reset all options
+            document.querySelectorAll('.payment-option').forEach(opt => {
+                opt.classList.remove('active');
+                const dot = opt.querySelector('.radio-dot');
+                if (dot) {
+                    dot.innerHTML = '';
+                }
+            });
+
+            // Hide all detail sections
+            document.getElementById('saved-details').classList.add('hidden');
+            document.getElementById('new-card-details').classList.add('hidden');
+            document.getElementById('upi-details').classList.add('hidden');
+
+            // Activate selected
+            const selected = document.getElementById('pay-' + type);
+            selected.classList.add('active');
+            
+            const dot = selected.querySelector('.radio-dot');
+            if (dot) {
+                dot.innerHTML = checkIcon;
+            }
+
+            // Show relevant details
+            if (type === 'saved') document.getElementById('saved-details').classList.remove('hidden');
+            if (type === 'new-card') document.getElementById('new-card-details').classList.remove('hidden');
+            if (type === 'upi') document.getElementById('upi-details').classList.remove('hidden');
+        }
+
+        function simulateOrder() {
+            const btn = event.currentTarget;
+            btn.disabled = true;
+            btn.innerHTML = `Processing...`;
+            
+            setTimeout(() => {
+                document.getElementById('successModal').classList.replace('hidden', 'flex');
+            }, 1500);
+        }
+    
+         // --- Drawer Controls ---
+        function toggleDrawer(id) {
+            const drawer = document.getElementById(id);
+            const overlay = document.getElementById('drawerOverlay');
+            
+            // Close other drawers if open
+            document.querySelectorAll('.side-drawer').forEach(d => {
+                if(d.id !== id) d.classList.remove('open');
+            });
+
+            const isOpen = drawer.classList.toggle('open');
+            overlay.classList.toggle('hidden', !isOpen);
+            document.body.style.overflow = isOpen ? 'hidden' : 'auto';
+        }
+
+        function closeAllDrawers() {
+            document.querySelectorAll('.side-drawer').forEach(d => d.classList.remove('open'));
+            document.getElementById('drawerOverlay').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+            closeQuickView();
+        }
+
+    </script>
+</body>
+</html>
